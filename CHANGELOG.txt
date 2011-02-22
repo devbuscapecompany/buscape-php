@@ -1,0 +1,23 @@
+Versão: 1.0 - 14 de Julho de 2010
+
+- Lançamento
+
+Versão: 1.0.1 - 08 de Setembro de 2010
+
+- Correçãoo de bug no método topProducts()
+
+Versão: 2.0 - 28 de Setembro de 2010
+
+- Correção da string de ambiente de produção, de 'wbs' para 'bws'.
+- Novos métodos para manipulação dos dados informados para requisição.
+- Inclusão do Source ID obrigatório ao instanciar a classe.
+- Mudança na forma de instanciar a classe, informando-se agora apenas o application id e o source id, os outros parâmetros podem ser estados através das funções: setSandbox, setFormat e setCountryCode.
+
+Versão 2.0.1 - 18 de Outubro de 2010
+
+- Correção de obrigatoriedade do Source ID, o mesmo não será requerido para requisições
+
+Versão 2.0.2 - 26 de Novembro de 2010
+
+- Aplicação do parâmetro clientIp na URL de requisição à API do BuscaPé
+- Aplicação do User Agent que efetua a requisição à API do BuscaPé
