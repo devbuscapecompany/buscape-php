@@ -1,9 +1,5 @@
 Classe Apiki_Buscape_API
 
-Autor: Apiki
-
-Versão: 2.0.2
-
 Descrição: Biblioteca para facilitar o desenvolvimento ao integrar uma aplicação PHP com a API do BuscaPé.
 
 Instalação:
