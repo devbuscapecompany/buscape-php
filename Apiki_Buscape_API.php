@@ -517,7 +517,7 @@ class Apiki_Buscape_API {
 		$curl = curl_init();
 		curl_setopt( $curl , CURLOPT_URL , $url );
 		curl_setopt( $curl , CURLOPT_SSL_VERIFYPEER , false );
-		curl_setopt( $curl , CURLOPT_USERAGENT , ( $_SERVER[ 'HTTP_USER_AGENT' ] ) ? $_SERVER[ 'HTTP_USER_AGENT' ] : "Mozilla/4.0" );
+		curl_setopt( $curl , CURLOPT_USERAGENT , isset( $_SERVER[ 'HTTP_USER_AGENT' ] ) ? $_SERVER[ 'HTTP_USER_AGENT' ] : "Mozilla/4.0" );
 		curl_setopt( $curl , CURLOPT_RETURNTRANSFER , true );
 		$retorno = curl_exec( $curl );
 		curl_close( $curl );
