@@ -53,10 +53,11 @@ class Apiki_Buscape_API {
 	 *
 	 * @param string $applicationId
 	 * @param string $sourceId
+	 * @throws InvalidArgumentException Se o ID da aplicação não for passado
 	 */
 	public function __construct( $applicationId , $sourceId = '' ) {
 		if ( empty( $applicationId ) ){
-			$this->_showErrors( 'ID da aplicação requerido.' );
+			throw new InvalidArgumentException( 'ID da aplicação requerido.' );
 		}
 
 		$this->setApplicationId( $applicationId );
@@ -85,10 +86,11 @@ class Apiki_Buscape_API {
 	 * Define o código do país
 	 *
 	 * @param string $countryCode (AR|BR|CL|CO|MX|PE|VE)
+	 * @throws InvalidArgumentException Se o código do país não existir
 	 */
 	public function setCountryCode( $countryCode ) {
 		if ( !in_array( strtoupper( $countryCode ) , array( 'AR' , 'BR' , 'CL' , 'CO' , 'MX' , 'PE' , 'VE' ) ) ){
-			$this->_showErrors( sprintf( 'O código do país <b>%s</b> não existe.' , $countryCode ) );
+			throw new InvalidArgumentException( sprintf( 'O código do país <b>%s</b> não existe.' , $countryCode ) );
 		}
 
 		$this->_countryCode = $countryCode;
@@ -98,10 +100,11 @@ class Apiki_Buscape_API {
 	 * Define o formato de retorno
 	 *
 	 * @param string $format (xml|json)
+	 * @throws InvalidArgumentException Se o formato não existir
 	 */
 	public function setFormat( $format ) {
 		if ( !in_array( strtolower( $format ) , array( 'xml' , 'json' ) ) ){
-			$this->_showErrors( sprintf( 'O formato de retorno <b>%s</b> não existe.' , $format ) );
+			throw new InvalidArgumentException( sprintf( 'O formato de retorno <b>%s</b> não existe.' , $format ) );
 		}
 
 		$this->_format = $format;
@@ -222,6 +225,7 @@ class Apiki_Buscape_API {
 	 *
 	 * @param   array   $args Parâmetros para gerar a url de requisição
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
+	 * @throws	UnexpectedValueException Se nenhum parâmetro for passado
 	 */
 	public function findProductList( $args = array() ) {
 		$serviceName = 'findProductList';
@@ -241,7 +245,7 @@ class Apiki_Buscape_API {
 		}
 
 		if ( empty( $param ) ){
-			$this->_showErrors( sprintf( 'Pelo menos um parâmetro de pesquisa é requerido na função <b>%s</b>.' , $serviceName ) );
+			throw new UnexpectedValueException( sprintf( 'Pelo menos um parâmetro de pesquisa é requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
 		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
@@ -271,6 +275,7 @@ class Apiki_Buscape_API {
 	 *
 	 * @param   array   $args Parâmetros passados para gerar a url de requisição.
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
+	 * @throws	UnexpectedValueException Se nenhum parâmetro for passado
 	 */
 	public function findOfferList( $args = array() ) {
 		$serviceName = 'findOfferList';
@@ -296,7 +301,7 @@ class Apiki_Buscape_API {
 		}
 
 		if ( empty( $param ) ){
-			$this->_showErrors( sprintf( 'Pelo menos um parâmetro de pesquisa é requerido na função <b>%s</b>.' , $serviceName ) );
+			throw new UnexpectedValueException( sprintf( 'Pelo menos um parâmetro de pesquisa é requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
 		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
@@ -341,6 +346,7 @@ class Apiki_Buscape_API {
 	 *
 	 * @param   args    $args Parâmetros passados para gerar a url de requisição.
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
+	 * @throws	UnexpectedValueException Se o ID do produto não for passado
 	 */
 	public function viewUserRatings( $args = array() ) {
 		$serviceName = 'viewUserRatings';
@@ -352,7 +358,7 @@ class Apiki_Buscape_API {
 		}
 
 		if ( empty( $param ) ){
-			$this->_showErrors( sprintf( 'ID do produto requerido na função <b>%s</b>.' , $serviceName ) );
+			throw new UnexpectedValueException( sprintf( 'ID do produto requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
 		$callback = (  !empty( $args[ 'callback' ] ) ) ? '&callback=' . $args[ 'callback' ] : '';
@@ -373,8 +379,9 @@ class Apiki_Buscape_API {
 	 * json como retorno.</li>
 	 * </ul>
 	 *
-	 * @param  array    $args Parâmetros passados para gerar a url de requisição.
-	 * @return string   Função de retorno a ser executada caso esteja usando o método
+	 * @param	array    $args Parâmetros passados para gerar a url de requisição.
+	 * @return	string   Função de retorno a ser executada caso esteja usando o método
+	 * @throws	UnexpectedValueException Se o ID do produto não for passado
 	 */
 	public function viewProductDetails( $args = array() ) {
 		$serviceName = 'viewProductDetails';
@@ -386,7 +393,7 @@ class Apiki_Buscape_API {
 		}
 
 		if ( empty( $param ) ){
-			$this->_showErrors( sprintf( 'ID do produto requerido na função <b>%s</b>.' , $serviceName ) );
+			throw new UnexpectedValueException( sprintf( 'ID do produto requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
 		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
@@ -410,6 +417,7 @@ class Apiki_Buscape_API {
 	 *
 	 * @param   array   $args Parâmetros passados para gerar a url de requisição.
 	 * @return  string  Função de retorno a ser executada caso esteja usando o método.
+	 * @throws	UnexpectedValueException Se o ID da loja não for passado
 	 */
 	public function viewSellerDetails( $args = array() ) {
 		$serviceName = 'viewSellerDetails';
@@ -421,7 +429,7 @@ class Apiki_Buscape_API {
 		}
 
 		if ( empty( $param ) ){
-			$this->_showErrors( sprintf( 'ID da loja/empresa requerido na função <b>%s</b>.' , $serviceName ) );
+			throw new UnexpectedValueException( sprintf( 'ID da loja/empresa requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
 		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
@@ -479,11 +487,14 @@ class Apiki_Buscape_API {
 	/**
 	 * Método exibe os erros
 	 *
+	 * @deprecated Exibição de erros substituída por exceções
 	 * @param string $error
 	 */
 	protected function _showErrors( $error ) {
 		echo "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>";
 		echo $error;
+
+		trigger_error( 'O método _showErrors foi marcado como deprecated e será removido em futuras implementações' , E_USER_DEPRECATED );
 		exit();
 	}
 
@@ -492,10 +503,11 @@ class Apiki_Buscape_API {
 	 *
 	 * @param   str $url URL de acesso via CURL
 	 * @return  str Dados de retorno da URL requisitada
+	 * @throws	RuntimeException Se a extensão CURL do PHP estiver desabilitada
 	 */
 	protected function _getContent( $url ) {
 		if (  !function_exists( 'curl_init' ) ){
-			exit( 'A extensão CURL do PHP está desabilitada. Habilite-a para o funcionamento da classe.' );
+			throw new RuntimeException( 'A extensão CURL do PHP está desabilitada. Habilite-a para o funcionamento da classe.' );
 		}
 
 		if ( $this->getEnvironment() == 'bws' ){
