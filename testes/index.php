@@ -17,14 +17,14 @@ require_once '../Apiki_Buscape_API.php';
 $applicationID  = '564771466d477a4458664d3d';
 $sourceID       = '';
 
-$objApikiBuscapeApi = new Apiki_Buscape_API( $applicationID, $sourceID );
-$objApikiBuscapeApi->setSandbox();
+$objBuscaPeApi = new Apiki_Buscape_API( $applicationID, $sourceID );
+$objBuscaPeApi->setSandbox();
 
-echo $objApikiBuscapeApi->findCategoryList();
-//echo $objApikiBuscapeApi->findProductList( array( 'keyword' => 'Celular,Nokia' ) );
-//echo $objApikiBuscapeApi->findOfferList( array( 'productId' => 240493 ) );
-//echo $objApikiBuscapeApi->topProducts();
-//echo $objApikiBuscapeApi->viewUserRatings( array( 'productId' => 240493 ) );
-//echo $objApikiBuscapeApi->viewProductDetails( array( 'productId' => 23348 ) );
-//echo $objApikiBuscapeApi->viewSellerDetails( array( 'sellerId' => 335525 ) );
+//echo $objBuscaPeApi->findCategoryList();
+//echo $objBuscaPeApi->findProductList( array( 'keyword' => 'Celular,Nokia' ) );
+//echo $objBuscaPeApi->findOfferList( array( 'productId' => 240493 ) );
+echo $objBuscaPeApi->topProducts();
+//echo $objBuscaPeApi->viewUserRatings( array( 'productId' => 240493 ) );
+//echo $objBuscaPeApi->viewProductDetails( array( 'productId' => 23348 ) );
+//echo $objBuscaPeApi->viewSellerDetails( array( 'sellerId' => 335525 ) );
 ?>
