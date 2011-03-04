@@ -12,7 +12,6 @@
  * @license Creative Commons Atribuição 3.0 Brasil. http://creativecommons.org/licenses/by/3.0/br/
  */
 class Apiki_Buscape_API {
-
 	/**
 	 * Id da aplicação
 	 *
@@ -186,23 +185,18 @@ class Apiki_Buscape_API {
 	 * @param   array   $args Parâmetros passados para gerar a url de requisição
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
 	 */
-	public function findCategoryList( $args = array() ) {
+	public function findCategoryList( array $args = array() ) {
 		$serviceName = 'findCategoryList';
-		$default = array( 'categoryId' => 0 );
-		$args = array_merge( $default , $args );
+		$args = array_merge( array( 'categoryId' => 0 ) , $args );
 
-		if ( !empty( $args[ 'categoryId' ] ) or $args[ 'categoryId' ] == 0 ){
-			$param = '?categoryId=' . (int) $args[ 'categoryId' ];
+		$args[ 'categoryId' ] = (int) $args[ 'categoryId' ];
+		$args[ 'format' ] = $this->_format;
+
+		if ( isset( $args[ 'keyword' ] ) ){
+			$args[ 'keyword' ] = (string) $args[ 'keyword' ];
 		}
 
-		if ( !empty( $args[ 'keyword' ] ) ){
-			$param = '?keyword=' . (string) $args[ 'keyword' ];
-		}
-
-		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
-		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/%s%s%s%s' , $this->getEnvironment() , $serviceName , $this->getApplicationId() , $this->getCountryCode() , $param , $this->_jsonParam() , $callback , $this->_sourceIdParam() );
-
-		return $this->_getContent( $url );
+		return $this->_getContent( $serviceName , $args );
 	}
 
 	/**
@@ -228,31 +222,25 @@ class Apiki_Buscape_API {
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
 	 * @throws	UnexpectedValueException Se nenhum parâmetro for passado
 	 */
-	public function findProductList( $args = array() ) {
+	public function findProductList( array $args = array() ) {
 		$serviceName = 'findProductList';
-		$default = array();
-		$args = array_merge( $default , $args );
+		$argc = 0;
 
-		if ( !empty( $args[ 'categoryId' ] ) ){
-			$param = '?categoryId=' . (int) $args[ 'categoryId' ];
+		if ( isset( $args[ 'categoryId' ] ) ){
+			$args[ 'categoryId' ] = (int) $args[ 'categoryId' ];
+			++$argc;
 		}
 
-		if ( isset( $param ) and  !empty( $args[ 'keyword' ] ) ){
-			$param = $param . '&keyword=' . (string) $args[ 'keyword' ];
+		if ( isset( $args[ 'keyword' ] ) ){
+			$args[ 'keyword' ] = (string) $args[ 'keyword' ];
+			++$argc;
 		}
 
-		if ( !isset( $param ) and  !empty( $args[ 'keyword' ] ) ){
-			$param = '?keyword=' . (string) $args[ 'keyword' ];
-		}
-
-		if ( empty( $param ) ){
+		if ( $argc == 0 ){
 			throw new UnexpectedValueException( sprintf( 'Pelo menos um parâmetro de pesquisa é requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
-		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
-		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/%s%s%s%s' , $this->getEnvironment() , $serviceName , $this->getApplicationId() , $this->getCountryCode() , $param , $this->_jsonParam() , $callback , $this->_sourceIdParam() );
-
-		return $this->_getContent( $url );
+		return $this->_getContent( $serviceName , $args );
 	}
 
 	/**
@@ -278,37 +266,30 @@ class Apiki_Buscape_API {
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
 	 * @throws	UnexpectedValueException Se nenhum parâmetro for passado
 	 */
-	public function findOfferList( $args = array() ) {
+	public function findOfferList( array $args = array() ) {
 		$serviceName = 'findOfferList';
-		$default = array();
-		$args = array_merge( $default , $args );
+		$argc = 0;
 
-		if ( !empty( $args[ 'categoryId' ] ) ){
-			$param = '?categoryId=' . $args[ 'categoryId' ];
+		if ( isset( $args[ 'categoryId' ] ) ){
+			$args[ 'categoryId' ] = (int) $args[ 'categoryId' ];
+			++$argc;
 		}
 
-		if ( isset( $param ) and  !empty( $args[ 'keyword' ] ) ){
-			$param = $param . '&keyword=' . $args[ 'keyword' ];
-		} elseif ( !isset( $param ) and  !empty( $args[ 'keyword' ] ) ){
-			$param = '?keyword=' . $args[ 'keyword' ];
+		if ( isset( $args[ 'keyword' ] ) ){
+			$args[ 'keyword' ] = (string) $args[ 'keyword' ];
+			++$argc;
 		}
 
-		if ( !empty( $args[ 'productId' ] ) ){
-			$param = '?productId=' . $args[ 'productId' ];
+		if ( isset( $args[ 'productId' ] ) ){
+			$args[ 'productId' ] = (int) $args[ 'productId' ];
+			++$argc;
 		}
 
-		if ( !empty( $args[ 'barcode' ] ) ){
-			$param = '?barcode=' . $args[ 'barcode' ];
-		}
-
-		if ( empty( $param ) ){
+		if ( $argc == 0 ){
 			throw new UnexpectedValueException( sprintf( 'Pelo menos um parâmetro de pesquisa é requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
-		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
-		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/%s%s%s%s' , $this->getEnvironment() , $serviceName , $this->getApplicationId() , $this->getCountryCode() , $param , $this->_jsonParam() , $callback , $this->_sourceIdParam() );
-
-		return $this->_getContent( $url );
+		return $this->_getContent( $serviceName , $args );
 	}
 
 	/**
@@ -325,12 +306,10 @@ class Apiki_Buscape_API {
 	 * @param   array   $args Parâmetros passados para gerar a url de requisição.
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
 	 */
-	public function topProducts( $args = array() ) {
+	public function topProducts( array $args = array() ) {
 		$serviceName = 'topProducts';
-		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
-		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/%s%s%s' , $this->getEnvironment() , $serviceName , $this->getApplicationId() , $this->getCountryCode() , $this->_jsonParam() , $callback , $this->_sourceIdParam() );
 
-		return $this->_getContent( $url );
+		return $this->_getContent( $serviceName , $args );
 	}
 
 	/**
@@ -349,23 +328,16 @@ class Apiki_Buscape_API {
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
 	 * @throws	UnexpectedValueException Se o ID do produto não for passado
 	 */
-	public function viewUserRatings( $args = array() ) {
+	public function viewUserRatings( array $args = array() ) {
 		$serviceName = 'viewUserRatings';
-		$default = array();
-		$args = array_merge( $default , $args );
 
-		if ( !empty( $args[ 'productId' ] ) ){
-			$param = '?productId=' . $args[ 'productId' ];
-		}
-
-		if ( empty( $param ) ){
+		if ( isset( $args[ 'productId' ] ) ){
+			$args[ 'productId' ] = (int) $args[ 'productId' ];
+		} else {
 			throw new UnexpectedValueException( sprintf( 'ID do produto requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
-		$callback = (  !empty( $args[ 'callback' ] ) ) ? '&callback=' . $args[ 'callback' ] : '';
-		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/%s%s%s%s' , $this->getEnvironment() , $serviceName , $this->getApplicationId() , $this->getCountryCode() , $param , $this->_jsonParam() , $callback , $this->_sourceIdParam() );
-
-		return $this->_getContent( $url );
+		return $this->_getContent( $serviceName , $args );
 	}
 
 	/**
@@ -384,23 +356,16 @@ class Apiki_Buscape_API {
 	 * @return	string   Função de retorno a ser executada caso esteja usando o método
 	 * @throws	UnexpectedValueException Se o ID do produto não for passado
 	 */
-	public function viewProductDetails( $args = array() ) {
+	public function viewProductDetails( array $args = array() ) {
 		$serviceName = 'viewProductDetails';
-		$default = array();
-		$args = array_merge( $default , $args );
 
-		if ( !empty( $args[ 'productId' ] ) ){
-			$param = '?productId=' . $args[ 'productId' ];
-		}
-
-		if ( empty( $param ) ){
+		if ( isset( $args[ 'productId' ] ) ){
+			$args[ 'productId' ] = (int) $args[ 'productId' ];
+		} else {
 			throw new UnexpectedValueException( sprintf( 'ID do produto requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
-		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
-		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/%s%s%s%s' , $this->getEnvironment() , $serviceName , $this->getApplicationId() , $this->getCountryCode() , $param , $this->_jsonParam() , $callback , $this->_sourceIdParam() );
-
-		return $this->_getContent( $url );
+		return $this->_getContent( $serviceName , $args );
 	}
 
 	/**
@@ -420,23 +385,16 @@ class Apiki_Buscape_API {
 	 * @return  string  Função de retorno a ser executada caso esteja usando o método.
 	 * @throws	UnexpectedValueException Se o ID da loja não for passado
 	 */
-	public function viewSellerDetails( $args = array() ) {
+	public function viewSellerDetails( array $args = array() ) {
 		$serviceName = 'viewSellerDetails';
-		$default = array();
-		$args = array_merge( $default , $args );
 
-		if ( !empty( $args[ 'sellerId' ] ) ){
-			$param = '?sellerId=' . $args[ 'sellerId' ];
-		}
-
-		if ( empty( $param ) ){
+		if ( isset( $args[ 'sellerId' ] ) ){
+			$args[ 'sellerId' ] = (int) $args[ 'sellerId' ];
+		} else {
 			throw new UnexpectedValueException( sprintf( 'ID da loja/empresa requerido na função <b>%s</b>.' , $serviceName ) );
 		}
 
-		$callback = !empty( $args[ 'callback' ] ) ? '&callback=' . $args[ 'callback' ] : '';
-		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/%s%s%s%s' , $this->getEnvironment() , $serviceName , $this->getApplicationId() , $this->getCountryCode() , $param , $this->_jsonParam() , $callback , $this->_sourceIdParam() );
-
-		return $this->_getContent( $url );
+		return $this->_getContent( $serviceName , $args );
 	}
 
 	/**
@@ -466,8 +424,11 @@ class Apiki_Buscape_API {
 	 * BuscaPé
 	 *
 	 * @return string
+	 * @deprecated Concatenação de string substituído pela função http_build_query()
 	 */
 	private function _jsonParam() {
+		trigger_error( 'O método _jsonParam() foi marcado como deprecated e será removido em futuras implementações' , E_USER_DEPRECATED );
+
 		if ( $this->_isFormatJson() ){
 			return '&format=json';
 		}
@@ -480,8 +441,11 @@ class Apiki_Buscape_API {
 	 * BuscaPé.
 	 *
 	 * @return string
+	 * @deprecated Concatenação de string substituído pela função http_build_query()
 	 */
 	private function _sourceIdParam() {
+		trigger_error( 'O método _sourceIdParam() foi marcado como deprecated e será removido em futuras implementações' , E_USER_DEPRECATED );
+
 		return '&sourceId=' . $this->getSourceId();
 	}
 
@@ -495,25 +459,32 @@ class Apiki_Buscape_API {
 		echo "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>";
 		echo $error;
 
-		trigger_error( 'O método _showErrors foi marcado como deprecated e será removido em futuras implementações' , E_USER_DEPRECATED );
+		trigger_error( 'O método _showErrors() foi marcado como deprecated e será removido em futuras implementações' , E_USER_DEPRECATED );
 		exit();
 	}
 
 	/**
 	 * Método busca retorna os dados da url requisitada
 	 *
-	 * @param   str $url URL de acesso via CURL
-	 * @return  str Dados de retorno da URL requisitada
+	 * @param   string $serviceName Nome do serviço
+	 * @param	array $args Parâmetros que serão enviados
+	 * @return  string Dados de retorno da URL requisitada
 	 * @throws	RuntimeException Se a extensão CURL do PHP estiver desabilitada
 	 */
-	protected function _getContent( $url ) {
+	protected function _getContent( $serviceName , array $args ) {
 		if (  !function_exists( 'curl_init' ) ){
 			throw new RuntimeException( 'A extensão CURL do PHP está desabilitada. Habilite-a para o funcionamento da classe.' );
 		}
 
-		if ( $this->getEnvironment() == 'bws' ){
-			$url = $url . '&clientIp=' . preg_replace( '/[^0-9., ]/' , '' , $_SERVER[ 'REMOTE_ADDR' ] );
+		if ( !empty( $this->_sourceId ) ){
+			$args[ 'sourceId' ] = $this->_sourceId;
 		}
+
+		if ( $this->_environment == 'bws' && isset( $_SERVER[ 'REMOTE_ADDR' ] ) ){
+			$args[ 'clientIp' ] = preg_replace( '/[^0-9., ]/' , '' , $_SERVER[ 'REMOTE_ADDR' ] );
+		}
+
+		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/?%s' , $this->_environment , $serviceName , $this->_applicationId , $this->_countryCode , http_build_query( $args ) );
 
 		$curl = curl_init();
 		curl_setopt( $curl , CURLOPT_URL , $url );
