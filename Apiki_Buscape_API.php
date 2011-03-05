@@ -8,7 +8,7 @@
  *
  * @author Apiki
  * @author João Batista Neto
- * @version 2.0.1
+ * @version 2.0.4
  * @license Creative Commons Atribuição 3.0 Brasil. http://creativecommons.org/licenses/by/3.0/br/
  */
 class Apiki_Buscape_API {
@@ -56,10 +56,6 @@ class Apiki_Buscape_API {
 	 * @throws InvalidArgumentException Se o ID da aplicação não for passado
 	 */
 	public function __construct( $applicationId , $sourceId = '' ) {
-		if ( empty( $applicationId ) ){
-			throw new InvalidArgumentException( 'ID da aplicação requerido.' );
-		}
-
 		$this->setApplicationId( $applicationId );
 		$this->setSourceId( $sourceId );
 	}
@@ -68,8 +64,13 @@ class Apiki_Buscape_API {
 	 * Define o Id da aplicação
 	 *
 	 * @param string $applicationId
+	 * @throws InvalidArgumentException Se o ID da aplicação não for passado
 	 */
 	public function setApplicationId( $applicationId ) {
+		if ( empty( $applicationId ) ){
+			throw new InvalidArgumentException( 'ID da aplicação requerido.' );
+		}
+
 		$this->_applicationId = $applicationId;
 	}
 
@@ -184,6 +185,8 @@ class Apiki_Buscape_API {
 	 *
 	 * @param   array   $args Parâmetros passados para gerar a url de requisição
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
+	 * @throws	UnexpectedValueException Se a palavra chave for uma string vazia.
+	 * @throws	UnexpectedValueException Se o id da categoria for menor que zero.
 	 */
 	public function findCategoryList( array $args = array() ) {
 		$serviceName = 'findCategoryList';
@@ -192,8 +195,16 @@ class Apiki_Buscape_API {
 		$args[ 'categoryId' ] = (int) $args[ 'categoryId' ];
 		$args[ 'format' ] = $this->_format;
 
+		if ( $args[ 'categoryId' ] < 0 ){
+			throw new UnexpectedValueException( 'O id da categoria deve ser maior ou igual a zero' );
+		}
+
 		if ( isset( $args[ 'keyword' ] ) ){
-			$args[ 'keyword' ] = (string) $args[ 'keyword' ];
+			$args[ 'keyword' ] = trim( (string) $args[ 'keyword' ] );
+
+			if ( empty( $args[ 'keyword' ] ) ){
+				throw new UnexpectedValueException( 'A palavra chave não pode ser uma string vazia' );
+			}
 		}
 
 		return $this->_getContent( $serviceName , $args );

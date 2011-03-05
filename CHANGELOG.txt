@@ -21,3 +21,13 @@ Versão 2.0.2 - 26 de Novembro de 2010
 
 - Aplicação do parâmetro clientIp na URL de requisição à API do BuscaPé
 - Aplicação do User Agent que efetua a requisição à API do BuscaPé
+
+Versão 2.0.3 - 4 de Março de 2011
+
+- Ajustando formatação de acordo com padrões PHP
+- Método _showErrors marcado como "deprecated" e substituído por exceções 
+- Verificação adicionada para HTTP_USER_AGENT que pode não existir. 
+
+Versão 2.0.4 - 4 de Março de 2011
+
+- Substituição de concatenação de string para formatação da URL pela função http_build_query()
