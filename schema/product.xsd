@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:bws="urn:buscape"
+			targetNamespace="urn:buscape"
+			elementFormDefault="qualified">
+
+	<xsd:include schemaLocation="shared.xsd" />
+	<xsd:include schemaLocation="seller.xsd" />
+	
+	<xsd:complexType name="ProductType">
+		<xsd:sequence>
+			<xsd:element name="productName" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="productShortName" type="xsd:string" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="currency" type="bws:CurrencyType" />
+			<xsd:element name="priceMin" type="xsd:float" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="priceMax" type="xsd:float" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="links" type="bws:LinkList" />
+			<xsd:element name="thumbnail" type="bws:ThumbnailType" />
+			<xsd:element name="rating" type="bws:RatingType" />
+			<xsd:element name="specification" type="bws:SpecificationType" />
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:int" />
+		<xsd:attribute name="eco" type="xsd:boolean" />
+		<xsd:attribute name="hasMetaSearch" type="xsd:boolean" />
+		<xsd:attribute name="categoryId" type="xsd:int" />
+		<xsd:attribute name="totalSellers" type="xsd:int" />
+		<xsd:attribute name="fullDescription" type="xsd:boolean" />
+	</xsd:complexType>
+</xsd:schema>
