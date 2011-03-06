@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="true"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         syntaxCheck="true"
+         strict="true"
+         verbose="true">
+
+	<php>
+		<includePath>..</includePath>
+		<ini name="error_reporting" value="E_ALL | E_STRICT" />
+		<ini name="display_errors" value="On" />
+		<server name="REMOTE_ADDR" value="127.0.0.1"/>
+	</php>
+	
+	<logging>
+		<log type="coverage-html" target="coverage/html" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
+		<log type="coverage-clover" target="coverage/coverage.xml"/>
+	</logging>
+	
+	<testsuites>
+		<testsuite name="Apiki_Buscape_API">
+			<file>xml/Apiki_Buscape_APITest.php</file>
+			<file>xml/FindCategoryListTest.php</file>
+			<file>xml/FindOfferListTest.php</file>
+			<file>xml/FindProductListTest.php</file>
+			<file>xml/TopProductsTest.php</file>
+			<file>xml/ViewProductDetailsTest.php</file>
+			<file>xml/ViewSellerDetailsTest.php</file>
+			<file>xml/ViewUserRatingsTest.php</file>
+		</testsuite>
+	</testsuites>
+</phpunit>
