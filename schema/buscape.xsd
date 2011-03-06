@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:bws="urn:buscape"
+			targetNamespace="urn:buscape"
+			elementFormDefault="qualified">
+
+	<xsd:include schemaLocation="category.xsd" />
+	<xsd:include schemaLocation="product.xsd" />
+	<xsd:include schemaLocation="offer.xsd" />
+	
+	<xsd:element name="Result" type="bws:ResultType" />
+	
+	<xsd:complexType name="ResultType">
+		<xsd:sequence>
+			<xsd:element name="details" type="bws:ResultDetails" />
+			<xsd:choice>
+				<xsd:sequence>
+					<xsd:element name="category" type="bws:CategoryType" minOccurs="0" maxOccurs="1" />
+					<xsd:choice>
+						<xsd:sequence>
+							<xsd:element name="subCategory" type="bws:CategoryType" minOccurs="0" maxOccurs="unbounded" />
+							<xsd:element name="top5Category" type="bws:CategoryType" minOccurs="0" maxOccurs="unbounded" />
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:element name="product" type="bws:ProductType" minOccurs="0" maxOccurs="unbounded" />
+							<xsd:element name="offer" type="bws:OfferType" minOccurs="0" maxOccurs="unbounded" />
+						</xsd:sequence>
+					</xsd:choice>
+				</xsd:sequence>
+				<xsd:element name="seller" type="bws:SellerType" />
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="match" type="xsd:string" use="optional" />
+		<xsd:attribute name="totalResultsReturned" type="xsd:int" use="required" />
+		<xsd:attribute name="totalResultsAvailable" type="xsd:int" use="required" />
+		<xsd:attribute name="totalResultsSellers" type="xsd:int" use="optional" />
+		<xsd:attributeGroup ref="bws:paginationGroup" />
+		<xsd:attributeGroup ref="bws:recomendationGroup" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="ResultDetails">
+		<xsd:sequence>
+			<xsd:element name="applicationID" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="applicationVersion" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="applicationPath" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="date" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="elapsedTime" type="xsd:long" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="status" type="xsd:string" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="code" type="xsd:int" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="message" type="xsd:string" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:attributeGroup name="paginationGroup">
+		<xsd:attribute name="page" type="xsd:int" use="optional" />
+		<xsd:attribute name="totalPages" type="xsd:int" use="optional" />
+	</xsd:attributeGroup>
+	
+	<xsd:attributeGroup name="recomendationGroup">
+		<xsd:attribute name="totalNotRecommended" type="xsd:int" use="optional" />
+		<xsd:attribute name="totalRecommended" type="xsd:int" use="optional" />
+	</xsd:attributeGroup>
+</xsd:schema>

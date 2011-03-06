@@ -31,3 +31,9 @@ Versão 2.0.3 - 4 de Março de 2011
 Versão 2.0.4 - 4 de Março de 2011
 
 - Substituição de concatenação de string para formatação da URL pela função http_build_query()
+
+Versão 2.0.5 - 6 de Março de 2011
+
+- Conclusão dos testes unitários
+- Conclusão da criação do XML Schema para validação do retorno XML
+- Refatoramento da classe baseado nos resultados dos testes unitários

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:bws="urn:buscape"
+			targetNamespace="urn:buscape"
+			elementFormDefault="qualified">
+			
+	<xsd:include schemaLocation="shared.xsd" />
+	
+	<xsd:complexType name="SellerType">
+		<xsd:sequence>
+			<xsd:element name="sellerName" type="xsd:string" />
+			<xsd:element name="thumbnail" type="bws:ThumbnailType" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="links" type="bws:LinkList" />
+			<xsd:element name="extra" type="xsd:string" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="contacts" type="bws:ContactListType" />
+			<xsd:element name="rating" type="bws:RatingType" />
+			<xsd:element name="coupon" type="bws:CouponType" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="addresses" type="bws:AddressList" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+		<xsd:attribute name="pagamentoDigital" type="xsd:boolean" />
+		<xsd:attribute name="isTrustedStore" type="xsd:boolean" />
+		<xsd:attribute name="id" type="xsd:int" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="ContactListType">
+		<xsd:sequence>
+			<xsd:element name="contact" type="bws:ContactType" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ContactType">
+		<xsd:attribute name="label" type="xsd:string" />
+		<xsd:attribute name="value" type="xsd:string" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="CouponType">
+		<xsd:sequence>
+			<xsd:element name="link" type="bws:LinkType" />
+			<xsd:element name="description" type="xsd:string" />
+			<xsd:element name="type" type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:int" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="AddressList">
+		<xsd:sequence>
+			<xsd:element name="address" type="bws:AddressType" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="AddressType">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="postalArea" type="xsd:string" />
+			<xsd:element name="complement" type="xsd:string" />
+			<xsd:element name="district" type="xsd:string" />
+			<xsd:element name="city" type="xsd:string" />
+			<xsd:element name="state" type="xsd:string" />
+			<xsd:element name="postalCode" type="xsd:string" />
+			<xsd:element name="fone" type="xsd:string" />
+			<xsd:element name="map" type="bws:MapType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="MapType">
+		<xsd:sequence>
+			<xsd:element name="latitude" type="xsd:float" />
+			<xsd:element name="longitude" type="xsd:float" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

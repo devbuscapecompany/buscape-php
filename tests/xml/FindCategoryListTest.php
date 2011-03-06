@@ -1,50 +1,16 @@
 <?php
 require_once 'Apiki_Buscape_API.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'XMLTest.php';
 
 /**
  * Apiki_Buscape_API::findCategoryList test case.
  * @author	neto
  */
-class FindCategoryListTest extends PHPUnit_Framework_TestCase {
-	const SANDBOX_APPLICATION_ID = '564771466d477a4458664d3d';
-	const PRODUCTION_APPLICATION_ID = '6a46486e764a51354753343d';
-
+class FindCategoryListTest extends XMLTest {
 	/**
-	 * @var	string
+	 * 401 assert helper
+	 * @param	DOMNodeList $nodeList
 	 */
-	private $applicationId = FindCategoryListTest::SANDBOX_APPLICATION_ID;
-
-	/**
-	 * @var	string
-	 */
-	private $sourceId;
-
-	/**
-	 * @var Apiki_Buscape_API
-	 */
-	private $buscapeWrapper;
-
-	/**
-	 * Prepares the environment before running a test.
-	 */
-	protected function setUp() {
-		parent::setUp();
-
-		$this->applicationId = self::SANDBOX_APPLICATION_ID;
-
-		$this->buscapeWrapper = new Apiki_Buscape_API( $this->applicationId , $this->sourceId );
-	}
-
-	/**
-	 * Cleans up the environment after running a test.
-	 */
-	protected function tearDown() {
-		$this->buscapeWrapper = null;
-
-		parent::tearDown();
-	}
-
 	private function assert401Content( DOMNodeList $nodeList ) {
 		$h3Element = $nodeList->item( 0 );
 
@@ -83,6 +49,7 @@ class FindCategoryListTest extends PHPUnit_Framework_TestCase {
 
 		$dom = new DOMDocument();
 		$this->assertTrue( $dom->loadXML( $this->buscapeWrapper->findCategoryList( array( 'categoryId' => 1 ) ) ) );
+		$this->assertThatXMLIsValid( $dom );
 
 		return $dom->saveXML();
 	}
@@ -129,6 +96,7 @@ class FindCategoryListTest extends PHPUnit_Framework_TestCase {
 
 		$dom = new DOMDocument();
 		$this->assertTrue( $dom->loadXML( $this->buscapeWrapper->findCategoryList( array( 'keyword' => 'eletronicos' ) ) ) );
+		$this->assertThatXMLIsValid( $dom );
 
 		return $dom->saveXML();
 	}

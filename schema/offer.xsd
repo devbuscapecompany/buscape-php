@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:bws="urn:buscape"
+			targetNamespace="urn:buscape"
+			elementFormDefault="qualified">
+			
+	<xsd:include schemaLocation="shared.xsd" />
+	<xsd:include schemaLocation="seller.xsd" />
+
+	<xsd:complexType name="OfferType">
+		<xsd:sequence>
+			<xsd:element name="offerName" type="xsd:string" />
+			<xsd:element name="links" type="bws:LinkList" />
+			<xsd:element name="thumbnail" type="bws:ThumbnailType" />
+			<xsd:element name="price" type="bws:OfferPriceType" />
+			<xsd:element name="seller" type="bws:SellerType" />
+		</xsd:sequence>
+		<xsd:attribute name="productId" type="xsd:int" />
+		<xsd:attribute name="id" type="xsd:int" />
+		<xsd:attribute name="categoryId" type="xsd:int" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="OfferPriceType">
+		<xsd:sequence>
+			<xsd:element name="currency" type="bws:CurrencyType" />
+			<xsd:element name="value" type="xsd:float" />
+			<xsd:element name="parcel" type="bws:OfferParcelType" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="OfferParcelType">
+		<xsd:sequence>
+			<xsd:element name="value" type="xsd:float" />
+			<xsd:element name="number" type="xsd:int" />
+			<xsd:element name="interest" type="xsd:float" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
