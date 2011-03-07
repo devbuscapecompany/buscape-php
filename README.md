@@ -14,16 +14,16 @@ A classe Apiki_Buscape_API __pré-configura__ sua aplicação para uma integraç
 Como Usar ?
 -----------
 
-. Defina um diretório para ela em sua aplicação.
+* Defina um diretório para ela em sua aplicação.
 
 	mkdir buscape-php
 
-. Faça um clone do repositório
+* Faça um clone do repositório
 
 	git clone https://github.com/buscapedev/buscape-php.git buscape-php
 
-. Instancie a classe.
-. Use sua instância criada para chamar os métodos da classe.
+* Instancie a classe.
+* Use sua instância criada para chamar os métodos da classe.
 
 	require_once 'Apiki_Buscape_API.php';
 
@@ -33,7 +33,7 @@ Como Usar ?
 	$objBuscaPeApi = new Apiki_Buscape_API( $applicationID, $sourceID );
 	$objBuscaPeApi->findCategoryList();
 
-Para mais informações acesse o (guia do desenvolvedor BuscaPé)[http://developer.buscape.com/api/]
+Para mais informações acesse o [guia do desenvolvedor BuscaPé](http://developer.buscape.com/api/)
 
 Métodos de Consulta Disponíveis
 ===============================
@@ -161,7 +161,7 @@ Define o Id da aplicação.
 
 * _string_ __$applicationId__ ID da aplicação registrado no BuscaPé.
 
-Para obter um ID de aplicação você precisará fazer seu (registro)[http://developer.buscape.com/admin/registration.html]
+Para obter um ID de aplicação você precisará fazer seu [registro](http://developer.buscape.com/admin/registration.html)
 
 Veja também Apiki_Buscape_API::getApplicationId()
 
