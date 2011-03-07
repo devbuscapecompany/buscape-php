@@ -14,16 +14,16 @@ A classe Apiki_Buscape_API __pré-configura__ sua aplicação para uma integraç
 Como Usar ?
 -----------
 
-* Defina um diretório para ela em sua aplicação.
+> Defina um diretório para ela em sua aplicação.
 
 	mkdir buscape-php
 
-* Faça um clone do repositório
+> Faça um clone do repositório
 
 	git clone https://github.com/buscapedev/buscape-php.git buscape-php
 
-* Instancie a classe.
-* Use sua instância criada para chamar os métodos da classe.
+> Instancie a classe.
+> Use sua instância criada para chamar os métodos da classe.
 
 	require_once 'Apiki_Buscape_API.php';
 
