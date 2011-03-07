@@ -16,11 +16,11 @@ Como Usar ?
 
 . Defina um diretório para ela em sua aplicação.
 
-> mkdir buscape-php
+	mkdir buscape-php
 
 . Faça um clone do repositório
 
-> git clone https://github.com/buscapedev/buscape-php.git buscape-php
+	git clone https://github.com/buscapedev/buscape-php.git buscape-php
 
 . Instancie a classe.
 . Use sua instância criada para chamar os métodos da classe.
@@ -33,7 +33,7 @@ Como Usar ?
 	$objBuscaPeApi = new Apiki_Buscape_API( $applicationID, $sourceID );
 	$objBuscaPeApi->findCategoryList();
 
-Para mais informações acesse o [guia do desenvolvedor BuscaPé](http://developer.buscape.com/api/)
+Para mais informações acesse o (guia do desenvolvedor BuscaPé)[http://developer.buscape.com/api/]
 
 Métodos de Consulta Disponíveis
 ===============================
@@ -161,7 +161,7 @@ Define o Id da aplicação.
 
 * _string_ __$applicationId__ ID da aplicação registrado no BuscaPé.
 
-Para obter um ID de aplicação você precisará fazer seu [registro](http://developer.buscape.com/admin/registration.html).
+Para obter um ID de aplicação você precisará fazer seu (registro)[http://developer.buscape.com/admin/registration.html]
 
 Veja também Apiki_Buscape_API::getApplicationId()
 
@@ -178,6 +178,7 @@ Define o código do país.
 	* __MX__ Para México
 	* __PE__ Para Peru
 	* __VE__ Para Venezuela
+
 
 Veja também Apiki_Buscape_API::getCountryCode()
 
