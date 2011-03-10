@@ -35,6 +35,27 @@ Como Usar ?
 
 Para mais informações acesse o [guia do desenvolvedor BuscaPé](http://developer.buscape.com/api/)
 
+Métodos de Criação de código Lomadee
+====================================
+
+string Apiki_Buscape_API::createSource( array $args )
+-----------------------------------------------------
+
+Serviço utilizado somente na integração do Aplicativo com o Lomadee.
+
+Dentro do fluxo de integração, o aplicativo utiliza esse serviço para criar sourceId (código) para o Publisher que deseja utiliza-lo.
+Os parâmetros necessários neste serviço são informados pelo __próprio Lomadee ao aplicativo.__
+
+_No ambiente de homologação sandbox, os valores dos parâmetros podem ser fictícios pois neste ambiente este serviço retornará sempre o mesmo sourceId para os testes do Developer._
+
+Todos os parâmetros necessários para a busca são informados em um array que deve ser passado para o método, são eles:
+
+* __sourceName__ Nome do código.
+* __publisherId__ ID do publisher.
+* __siteId__ ID do site selecionado pelo publisher.
+* __campaignList__ Lista de IDs das campanhas __separados por vírgula__.
+* __token__ Token utilizado para validação da requisição.
+
 Métodos de Consulta Disponíveis
 ===============================
 
@@ -52,8 +73,8 @@ Todos os parâmetros necessários para a busca são informados em um array que d
 
 Se não for informado nenhum dos parâmetros, a função retornará por padrão uma lista de categorias raiz, de id 0.
 
-string Apiki_Buscape_API::findOfferList( array $args )
-------------------------------------------------------
+string Apiki_Buscape_API::findOfferList( array $args , boolean $lomadee )
+-------------------------------------------------------------------------
 
 Método busca uma lista de ofertas.
 É possível obter a lista de ofertas informando o ID do produto.
@@ -66,10 +87,12 @@ Todos os parâmetros necessários para a busca são informados em um array que d
 * __barcode__ Código de barras do produto.
 * __callback__ Função de retorno a ser executada caso esteja usando o método __JSON__ como retorno.
 
+O parâmetro $lomadee é um boolean que indicará se será utilizada a API Lomadee, por padrão esse valor é false.
+
 Pelo menos um dos parâmetros de pesquisa devem ser informados para o retorno da função. Os parâmetros __categoryId__ e __keyword__ podem ser usados em conjunto.
 
-string Apiki_Buscape_API::findProductList( array $args )
---------------------------------------------------------
+string Apiki_Buscape_API::findProductList( array $args , boolean $lomadee )
+---------------------------------------------------------------------------
 
 Método permite que você busque uma lista de produtos únicos utilizando o id da categoria final ou um conjunto de palavras-chaves ou ambos.
 Todos os parâmetros necessários para a busca são informados em um array que deve ser passado para o método, são eles:
@@ -80,6 +103,8 @@ Todos os parâmetros necessários para a busca são informados em um array que d
 
 Pelo menos um dos parâmetros, __categoryID__ ou __keyword__ são requeridos para funcionamento desta função. Os dois também podem ser usados em conjunto.
 Ou seja, podemos buscar uma palavra-chave em apenas uma determinada categoria.
+
+O parâmetro $lomadee é um boolean que indicará se será utilizada a API Lomadee, por padrão esse valor é false.
 
 string Apiki_Buscape_API::topProducts( array $args )
 ----------------------------------------------------
