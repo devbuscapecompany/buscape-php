@@ -68,12 +68,16 @@ class Apiki_Buscape_API {
 	 * @return  string Dados de retorno da URL requisitada
 	 * @throws	RuntimeException Se a extensão CURL do PHP estiver desabilitada
 	 */
-	protected function _getContent( $serviceName , array $args ) {
+	protected function _getContent( $serviceName , array $args , $lomadee = false ) {
 		// @codeCoverageIgnoreStart
 		if (  !function_exists( 'curl_init' ) ){
 			throw new RuntimeException( 'A extensão CURL do PHP está desabilitada. Habilite-a para o funcionamento da classe.' );
 		}
 		// @codeCoverageIgnoreEnd
+
+		if ( (bool) $lomadee ) {
+			$serviceName .= '/lomadee';
+		}
 
 		if ( !empty( $this->_sourceId ) ){
 			$args[ 'sourceId' ] = $this->_sourceId;
@@ -120,12 +124,38 @@ class Apiki_Buscape_API {
 	}
 
 	/**
+	 * Serviço utilizado somente na integração do Aplicativo com o Lomadee.
+	 * Dentro do fluxo de integração, o aplicativo utiliza esse serviço para
+	 * criar sourceId (código) para o Publisher que deseja utiliza-lo.
+	 * Os parâmetros necessários neste serviço são informados pelo próprio
+	 * Lomadee ao aplicativo.
+	 * No ambiente de homologação sandbox, os valores dos parâmetros podem ser
+	 * fictícios pois neste ambiente este serviço retornará sempre o mesmo sourceId
+	 * para os testes do Developer.
+	 *
+	 * Todos os parâmetros necessários para a busca são informados em um array
+	 * que deve ser passado para o método, são eles:
+	 *
+	 * <ul>
+	 * <li>sourceName   = Nome do código.</li>
+	 * <li>publisherId  = ID do publisher.</li>
+	 * <li>siteId       = ID do site selecionado pelo publisher.</li>
+	 * <li>campaignList = Lista de IDs das campanhas separados por vírgula.</li>
+	 * <li>token        = Token utilizado para validação da requisição.</li>
+	 * </ul>
+	 *
+	 * @param   array $args
+	 * @return  string  O sourceId
+	 */
+	public function createSourceId( array $args ) {
+		return $this->_getContent( 'createSource' , $args , true );
+	}
+
+	/**
 	 * Método faz busca de categorias, permite que você exiba informações
 	 * relativas às categorias. É possível obter categorias, produtos ou ofertas
 	 * informando apenas um ID de categoria.
 	 *
-	 * Todos os parâmetros necessários para a busca são informados em um array
-	 * que deve ser passado para o método, são eles:
 	 *
 	 * <ul>
 	 * <li>categoryId   = Id da categoria</li>
@@ -166,14 +196,15 @@ class Apiki_Buscape_API {
 	 * da função. Os parâmetros <categoryId> e <keyword> podem ser usados em conjunto.
 	 *
 	 * @param   array   $args Parâmetros passados para gerar a url de requisição.
+	 * @param   boolean $lomadee Indica se deverá ser utilizada a API do Lomadee
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
 	 * @throws	UnexpectedValueException Se nenhum parâmetro for passado
 	 * @throws	UnexpectedValueException Se o id da categoria for menor que zero.
 	 * @throws	UnexpectedValueException Se o id do produto for menor que zero.
 	 * @throws	UnexpectedValueException Se a palavra chave for uma string vazia.
 	 */
-	public function findOfferList( array $args = array() ) {
-		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword' ) ) );
+	public function findOfferList( array $args = array() , $lomadee = false ) {
+		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword' ) ) , $lomadee );
 	}
 
 	/**
@@ -196,13 +227,14 @@ class Apiki_Buscape_API {
 	 * Ou seja, podemos buscar uma palavra-chave em apenas uma determinada categoria.
 	 *
 	 * @param   array   $args Parâmetros para gerar a url de requisição
+	 * @param   boolean $lomadee Indica se deverá ser utilizada a API do Lomadee
 	 * @return  string  Retorno da pesquisa feita no BuscaPé, no formato requerido.
 	 * @throws	UnexpectedValueException Se nenhum parâmetro for passado.
 	 * @throws	UnexpectedValueException Se o id da categoria for menor que zero.
 	 * @throws	UnexpectedValueException Se a palavra chave for uma string vazia.
 	 */
-	public function findProductList( array $args = array() ) {
-		return $this->_getContent( 'findProductList' , $this->validateParams( $args , array() , array( 'categoryId' , 'keyword' ) ) );
+	public function findProductList( array $args = array() , $lomadee = false ) {
+		return $this->_getContent( 'findProductList' , $this->validateParams( $args , array() , array( 'categoryId' , 'keyword' ) ) , $lomadee );
 	}
 
 	/**
