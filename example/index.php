@@ -23,8 +23,8 @@ $objBuscaPeApi->setSandbox();
 //echo $objBuscaPeApi->findCategoryList();
 //echo $objBuscaPeApi->findProductList( array( 'keyword' => 'Celular,Nokia' ) );
 //echo $objBuscaPeApi->findOfferList( array( 'productId' => 240493 ) );
-echo $objBuscaPeApi->topProducts();
+//echo $objBuscaPeApi->topProducts();
 //echo $objBuscaPeApi->viewUserRatings( array( 'productId' => 240493 ) );
-//echo $objBuscaPeApi->viewProductDetails( array( 'productId' => 23348 ) );
+echo $objBuscaPeApi->viewProductDetails( array( 'productId' => 232685 ) );
 //echo $objBuscaPeApi->viewSellerDetails( array( 'sellerId' => 335525 ) );
 ?>
