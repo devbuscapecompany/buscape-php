@@ -83,8 +83,8 @@ class Apiki_Buscape_API {
 			$args[ 'sourceId' ] = $this->_sourceId;
 		}
 
-		if ( $this->_environment == 'bws' && isset( $_SERVER[ 'REMOTE_ADDR' ] ) ){
-			$args[ 'clientIp' ] = preg_replace( '/[^0-9., ]/' , '' , $_SERVER[ 'REMOTE_ADDR' ] );
+		if ( $this->_environment == 'bws' && ( isset( $_SERVER[ 'REMOTE_ADDR' ] ) || ( $xip = isset( $_SERVER[ 'HTTP_X_IP' ] ) ) != false ) ) {
+			$args[ 'clientIp' ] = preg_replace( '/[^0-9., ]/' , '' , $_SERVER[ $xip ? 'HTTP_X_IP' : 'REMOTE_ADDR' ] );
 		}
 
 		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/?%s' , $this->_environment , $serviceName , $this->_applicationId , $this->_countryCode , http_build_query( $args ) );
