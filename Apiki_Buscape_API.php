@@ -87,6 +87,10 @@ class Apiki_Buscape_API {
 			$args[ 'clientIp' ] = preg_replace( '/[^0-9., ]/' , '' , $_SERVER[ $xip ? 'HTTP_X_IP' : 'REMOTE_ADDR' ] );
 		}
 
+		if ($this->_isFormatJson()) {
+			$args['format'] = 'json';
+		}
+
 		$url = sprintf( 'http://%s.buscape.com/service/%s/%s/%s/?%s' , $this->_environment , $serviceName , $this->_applicationId , $this->_countryCode , http_build_query( $args ) );
 
 		$curl = curl_init();
