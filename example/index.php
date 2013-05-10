@@ -25,6 +25,6 @@ $objBuscaPeApi->setSandbox();
 //echo $objBuscaPeApi->findOfferList( array( 'productId' => 240493 ) );
 //echo $objBuscaPeApi->topProducts();
 //echo $objBuscaPeApi->viewUserRatings( array( 'productId' => 240493 ) );
-echo $objBuscaPeApi->viewProductDetails( array( 'productId' => 232685 ) );
+//echo $objBuscaPeApi->viewProductDetails( array( 'productId' => 232685 ) );
 //echo $objBuscaPeApi->viewSellerDetails( array( 'sellerId' => 335525 ) );
 ?>
