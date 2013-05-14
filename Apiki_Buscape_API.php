@@ -74,7 +74,7 @@ class Apiki_Buscape_API {
 			throw new RuntimeException( 'A extensão CURL do PHP está desabilitada. Habilite-a para o funcionamento da classe.' );
 		}
 		// @codeCoverageIgnoreEnd
-
+		
 		if ( (bool) $lomadee ) {
 			$serviceName .= '/lomadee';
 		}
@@ -208,7 +208,7 @@ class Apiki_Buscape_API {
 	 * @throws	UnexpectedValueException Se a palavra chave for uma string vazia.
 	 */
 	public function findOfferList( array $args = array() , $lomadee = false ) {
-		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword' ) ) , $lomadee );
+		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword', 'barcode' ) ) , $lomadee );
 	}
 
 	/**
@@ -405,6 +405,14 @@ class Apiki_Buscape_API {
 
 			if ( $args[ 'sellerId' ] < 0 ){
 				throw new UnexpectedValueException( 'O id da loja/empresa deve ser maior ou igual a zero' );
+			}
+		}
+
+		if ( isset( $args[ 'barcode' ] ) ){
+			$args[ 'barcode' ] = trim( (string) $args[ 'barcode' ] );
+
+			if ( empty( $args[ 'barcode' ] ) ){
+				throw new UnexpectedValueException( 'O código de barras não pode ser uma string vazia' );
 			}
 		}
 
