@@ -27,6 +27,12 @@ $objBuscaPeApi->setSandbox();
 // Busca uma lista de produtos por palavras-chave
 //echo $objBuscaPeApi->findProductList( array( 'keyword' => 'Celular,Nokia' ) );
 
+// Busca ofertas a partir de palavras-chave
+// echo $objBuscaPeApi->findOfferList( array( 'keyword' => 'iPhone 5' ) );
+
+// Busca os dados de uma oferta a partir do seu ID
+echo $objBuscaPeApi->findOfferList( array( 'offerId' => 126733147 ) );
+
 // Busca ofertas a partir de um código de barras
 // echo $objBuscaPeApi->findOfferList( array( 'barcode' => 9788575222379 ) );
 
@@ -41,4 +47,3 @@ $objBuscaPeApi->setSandbox();
 
 // Busca os detalhes de uma loja a partir de seu ID
 //echo $objBuscaPeApi->viewSellerDetails( array( 'sellerId' => 335525 ) );
-?>

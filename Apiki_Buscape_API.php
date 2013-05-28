@@ -8,7 +8,7 @@
  *
  * @author Apiki
  * @author João Batista Neto
- * @version 2.0.6
+ * @version 2.0.7
  * @license Creative Commons Atribuição 3.0 Brasil. http://creativecommons.org/licenses/by/3.0/br/
  */
 class Apiki_Buscape_API {
@@ -192,6 +192,7 @@ class Apiki_Buscape_API {
 	 * <li>keyword      = Palavra-chave buscada entre as categorias</li>
 	 * <li>productId    = Id do produto</li>
 	 * <li>barcode      = Código de barras do produto</li>
+	 * <li>offerId      = ID da oferta</li>
 	 * <li>callback     = Função de retorno a ser executada caso esteja usando o método
 	 * json como retorno.</li>
 	 * </ul>
@@ -208,7 +209,7 @@ class Apiki_Buscape_API {
 	 * @throws	UnexpectedValueException Se a palavra chave for uma string vazia.
 	 */
 	public function findOfferList( array $args = array() , $lomadee = false ) {
-		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword', 'barcode' ) ) , $lomadee );
+		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword', 'barcode', 'offerId' ) ) , $lomadee );
 	}
 
 	/**
@@ -413,6 +414,14 @@ class Apiki_Buscape_API {
 
 			if ( empty( $args[ 'barcode' ] ) ){
 				throw new UnexpectedValueException( 'O código de barras não pode ser uma string vazia' );
+			}
+		}
+
+		if ( isset( $args[ 'offerId' ] ) ){
+			$args[ 'offerId' ] = (int) $args[ 'offerId' ];
+
+			if ( $args[ 'offerId' ] < 0 ){
+				throw new UnexpectedValueException( 'O id da oferta deve ser maior ou igual a zero' );
 			}
 		}
 
