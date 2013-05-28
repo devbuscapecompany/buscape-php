@@ -31,7 +31,7 @@ $objBuscaPeApi->setSandbox();
 // echo $objBuscaPeApi->findOfferList( array( 'keyword' => 'iPhone 5' ) );
 
 // Busca os dados de uma oferta a partir do seu ID
-echo $objBuscaPeApi->findOfferList( array( 'offerId' => 126733147 ) );
+// echo $objBuscaPeApi->findOfferList( array( 'offerId' => 126733147 ) );
 
 // Busca ofertas a partir de um código de barras
 // echo $objBuscaPeApi->findOfferList( array( 'barcode' => 9788575222379 ) );
