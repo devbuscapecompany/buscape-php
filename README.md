@@ -85,6 +85,7 @@ Todos os parâmetros necessários para a busca são informados em um array que d
 * __keyword__ Palavra-chave buscada entre as categorias.
 * __productId__ Id do produto.
 * __barcode__ Código de barras do produto.
+* __offerId__ Id da oferta.
 * __callback__ Função de retorno a ser executada caso esteja usando o método __JSON__ como retorno.
 
 O parâmetro $lomadee é um boolean que indicará se será utilizada a API Lomadee, por padrão esse valor é false.

@@ -37,3 +37,11 @@ Versão 2.0.5 - 6 de Março de 2011
 - Conclusão dos testes unitários
 - Conclusão da criação do XML Schema para validação do retorno XML
 - Refatoramento da classe baseado nos resultados dos testes unitários
+
+Versão 2.0.6 - 22 de Maio de 2013
+
+- Inclusão do parâmetro barcode na busca por ofertas
+
+Versão 2.0.7 - 28 de Maio de 2013
+
+- Inclusão do parâmetro offerId na busca por ofertas
