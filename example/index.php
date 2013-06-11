@@ -15,35 +15,48 @@ require_once '../Apiki_Buscape_API.php';
  * o ambiente de produção.
  */
 $applicationID  = '564771466d477a4458664d3d';
-
 $sourceID       = '';
 
 $objBuscaPeApi = new Apiki_Buscape_API( $applicationID, $sourceID );
 $objBuscaPeApi->setSandbox();
 
-// Busca uma lista de categorias
-//echo $objBuscaPeApi->findCategoryList();
+try {
 
-// Busca uma lista de produtos por palavras-chave
-//echo $objBuscaPeApi->findProductList( array( 'keyword' => 'Celular,Nokia' ) );
+	// Busca uma lista de categorias
+	//echo $objBuscaPeApi->findCategoryList();
 
-// Busca ofertas a partir de palavras-chave
-// echo $objBuscaPeApi->findOfferList( array( 'keyword' => 'iPhone 5' ) );
+	// Busca uma lista de produtos por palavras-chave
+	//echo $objBuscaPeApi->findProductList( array( 'keyword' => 'Celular,Nokia' ) );
 
-// Busca os dados de uma oferta a partir do seu ID
-// echo $objBuscaPeApi->findOfferList( array( 'offerId' => 126733147 ) );
+	// Busca ofertas a partir de palavras-chave
+	// echo $objBuscaPeApi->findOfferList( array( 'keyword' => 'iPhone 5' ) );
 
-// Busca ofertas a partir de um código de barras
-// echo $objBuscaPeApi->findOfferList( array( 'barcode' => 9788575222379 ) );
+	// Busca os dados de uma oferta a partir do seu ID
+	// echo $objBuscaPeApi->findOfferList( array( 'offerId' => 126733147 ) );
 
-// Busca os produtos mais clicados da última semana
-//echo $objBuscaPeApi->topProducts();
+	// Busca ofertas a partir de um código de barras
+	// echo $objBuscaPeApi->findOfferList( array( 'barcode' => 9788575222379 ) );
 
-// Busca as avaliações dos usuários através do ID do produto
-//echo $objBuscaPeApi->viewUserRatings( array( 'productId' => 240493 ) );
+	// Busca ofertas a partir de palavras-chave e coordenadas geográficas
+	// echo $objBuscaPeApi->findOfferList( array( 
+	// 	'keyword'   => 'celular', 
+	// 	'latitude'  => '-23.557362', 
+	// 	'longitude' => '-46.660927', 
+	// 	'radius'    => 400 // metros 
+	// ) );
+	
+	// Busca os produtos mais clicados da última semana
+	//echo $objBuscaPeApi->topProducts();
 
-// Busca os detalhes de um produto a partir de seu ID
-//echo $objBuscaPeApi->viewProductDetails( array( 'productId' => 232685 ) );
+	// Busca as avaliações dos usuários através do ID do produto
+	//echo $objBuscaPeApi->viewUserRatings( array( 'productId' => 240493 ) );
 
-// Busca os detalhes de uma loja a partir de seu ID
-//echo $objBuscaPeApi->viewSellerDetails( array( 'sellerId' => 335525 ) );
+	// Busca os detalhes de um produto a partir de seu ID
+	//echo $objBuscaPeApi->viewProductDetails( array( 'productId' => 232685 ) );
+
+	// Busca os detalhes de uma loja a partir de seu ID
+	//echo $objBuscaPeApi->viewSellerDetails( array( 'sellerId' => 335525 ) );
+	
+} catch( Exception $e ) {
+	echo $e->getMessage();
+}

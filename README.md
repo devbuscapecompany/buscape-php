@@ -86,6 +86,9 @@ Todos os parâmetros necessários para a busca são informados em um array que d
 * __productId__ Id do produto.
 * __barcode__ Código de barras do produto.
 * __offerId__ Id da oferta.
+* __latitude__ Coordenada geográfica.
+* __longitude__ Coordenada geográfica.
+* __radius__ Coordenada geográfica.
 * __callback__ Função de retorno a ser executada caso esteja usando o método __JSON__ como retorno.
 
 O parâmetro $lomadee é um boolean que indicará se será utilizada a API Lomadee, por padrão esse valor é false.
