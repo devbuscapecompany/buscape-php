@@ -39,7 +39,7 @@ try {
 
 	// Busca ofertas a partir de palavras-chave e coordenadas geográficas
 	// echo $objBuscaPeApi->findOfferList( array( 
-	// 	'keyword'   => 'notebook', 
+	// 	'keyword'   => 'celular', 
 	// 	'latitude'  => '-23.557362', 
 	// 	'longitude' => '-46.660927', 
 	// 	'radius'    => 400 // metros 
