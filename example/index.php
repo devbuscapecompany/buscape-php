@@ -38,7 +38,12 @@ try {
 	// echo $objBuscaPeApi->findOfferList( array( 'barcode' => 9788575222379 ) );
 
 	// Busca ofertas a partir de palavras-chave e coordenadas geográficas
-	// echo $objBuscaPeApi->findOfferList( array( 'keyword' => 'celular', 'latitude' => '-23.557362', 'longitude' => '-46.660927', 'radius' => 400 ) );
+	// echo $objBuscaPeApi->findOfferList( array( 
+	// 	'keyword'   => 'notebook', 
+	// 	'latitude'  => '-23.557362', 
+	// 	'longitude' => '-46.660927', 
+	// 	'radius'    => 400 // metros 
+	// ) );
 	
 	// Busca os produtos mais clicados da última semana
 	//echo $objBuscaPeApi->topProducts();
