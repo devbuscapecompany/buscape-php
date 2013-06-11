@@ -8,10 +8,12 @@
  *
  * @author Apiki
  * @author João Batista Neto
- * @version 2.0.7
+ * @author Daniel Antunes
+ * @version 2.0.8
  * @license Creative Commons Atribuição 3.0 Brasil. http://creativecommons.org/licenses/by/3.0/br/
  */
 class Apiki_Buscape_API {
+
 	/**
 	 * Id da aplicação
 	 *

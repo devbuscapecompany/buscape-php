@@ -15,7 +15,6 @@ require_once '../Apiki_Buscape_API.php';
  * o ambiente de produção.
  */
 $applicationID  = '564771466d477a4458664d3d';
-
 $sourceID       = '';
 
 $objBuscaPeApi = new Apiki_Buscape_API( $applicationID, $sourceID );
