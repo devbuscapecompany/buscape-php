@@ -8,10 +8,12 @@
  *
  * @author Apiki
  * @author João Batista Neto
- * @version 2.0.7
+ * @author Daniel Antunes
+ * @version 2.0.8
  * @license Creative Commons Atribuição 3.0 Brasil. http://creativecommons.org/licenses/by/3.0/br/
  */
 class Apiki_Buscape_API {
+
 	/**
 	 * Id da aplicação
 	 *
@@ -209,7 +211,7 @@ class Apiki_Buscape_API {
 	 * @throws	UnexpectedValueException Se a palavra chave for uma string vazia.
 	 */
 	public function findOfferList( array $args = array() , $lomadee = false ) {
-		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword', 'barcode', 'offerId' ) ) , $lomadee );
+		return $this->_getContent( 'findOfferList' , $this->validateParams( $args , array() , array( 'categoryId' , 'productId' , 'keyword', 'barcode', 'offerId', 'latitude', 'longitude', 'radius' ) ) , $lomadee );
 	}
 
 	/**
@@ -423,6 +425,32 @@ class Apiki_Buscape_API {
 			if ( $args[ 'offerId' ] < 0 ){
 				throw new UnexpectedValueException( 'O id da oferta deve ser maior ou igual a zero' );
 			}
+		}
+
+		if ( isset( $args[ 'latitude' ] ) ){
+			$args[ 'latitude' ] = trim( (string) $args[ 'latitude' ] );
+
+			if ( empty( $args[ 'latitude' ] ) ){
+				throw new UnexpectedValueException( 'A latitude não pode ser uma string vazia' );
+			}
+		}		
+
+		if ( isset( $args[ 'longitude' ] ) ){
+			$args[ 'longitude' ] = trim( (string) $args[ 'longitude' ] );
+
+			if ( empty( $args[ 'longitude' ] ) ){
+				throw new UnexpectedValueException( 'A longitude não pode ser uma string vazia' );
+			}
+		}
+
+		if ( isset( $args[ 'radius' ] ) ){
+			$args[ 'radius' ] = (int) $args[ 'radius' ];
+
+			if ( $args[ 'radius' ] < 0 ){
+				throw new UnexpectedValueException( 'O radio de alcance deve ser maior ou igual a zero' );
+			}
+		} elseif( isset( $args['latitude'] ) and isset( $args['longitude'] ) ) {
+			throw new InvalidArgumentException( 'Para buscas por coordenadas geofráficas, é requerido informar o raio de alcance (radius)' );
 		}
 
 		foreach ( $and as $param ){
